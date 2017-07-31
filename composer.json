@@ -1,0 +1,15 @@
+{
+  "name": "iay/YafWithEloquentSample",
+  "description": "Yaf integrated Eloquent sample",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "iay",
+      "email": "i@iay.co"
+    }
+  ],
+  "require": {
+    "illuminate/database": "v4.2.17"
+  }
+}
