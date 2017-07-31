@@ -29,22 +29,26 @@ class IndexController extends YController_Abstract
         $this->getView()->assign("name", $name);
 
         //4. render by Yaf, 如果这里返回FALSE, Yaf将不会调用自动视图引擎Render模板
-
-        new BaseModel();
         return true;
     }
 
     public function dbtest1Action()
     {
-        var_dump(\Test\DBSampleModel::find(['id' => 1])->toArray());
+        var_dump(Test\DBSampleModel::find(['id' => 1])->toArray());
         return false;
     }
 
     public function dbtest2Action()
     {
-        $record = \Test\DBSampleModel::find(['id' => 1])->first();
+        $record = Test\DBSampleModel::find(['id' => 1])->first();
         $record->name = '数据：' . rand(1, 10000);
         var_dump($record->save());
+        return false;
+    }
+
+    public function psr4test1Action()
+    {
+        models\Test\Psr4test::sayMyName();
         return false;
     }
 }

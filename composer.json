@@ -11,5 +11,10 @@
   ],
   "require": {
     "illuminate/database": "v4.2.17"
+  },
+  "autoload": {
+    "psr-4": {
+      "models\\": "application/models/"
+    }
   }
 }
