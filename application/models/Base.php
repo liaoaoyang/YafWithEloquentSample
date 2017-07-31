@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Capsule\Manager as IlluminateCapsule;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
-use Yaf\Application as YApplication;
+use Yaf\Registry as YRegistry;
 
 
 class BaseModel extends IlluminateModel
@@ -14,7 +14,7 @@ class BaseModel extends IlluminateModel
     {
         parent::__construct($attributes);
         $dbConfigKey = DATABASE_CONFIG_KEY;
-        $this->config = YApplication::app()->getConfig();
+        $this->config = YRegistry::get('config');
 
         if (!$this->config->$dbConfigKey) {
             throw new Exception("Must configure database in .ini first");
