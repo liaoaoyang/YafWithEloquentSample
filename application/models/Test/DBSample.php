@@ -13,6 +13,7 @@
  *     PRIMARY KEY (`id`)
  * ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
+
 namespace Test;
 
 class DBSampleModel extends \BaseModel

@@ -8,35 +8,41 @@
  * 调用的次序, 和申明的次序相同
  */
 
-use Yaf\Bootstrap_Abstract as YBootstrap_Abstract;
 use Yaf\Application as YApplication;
-use Yaf\Registry as YRegistry;
+use Yaf\Bootstrap_Abstract as YBootstrap_Abstract;
 use Yaf\Dispatcher as YDispatcher;
 use Yaf\Loader as YLoader;
+use Yaf\Registry as YRegistry;
 
-class Bootstrap extends YBootstrap_Abstract {
+class Bootstrap extends YBootstrap_Abstract
+{
 
-    public function _initLoader() {
+    public function _initLoader()
+    {
         YLoader::import(APPLICATION_PATH . '/vendor/autoload.php');
     }
 
-    public function _initConfig() {
-		//把配置保存起来
-		$arrConfig = YApplication::app()->getConfig();
+    public function _initConfig()
+    {
+        //把配置保存起来
+        $arrConfig = YApplication::app()->getConfig();
         YRegistry::set('config', $arrConfig);
-	}
+    }
 
-	public function _initPlugin(YDispatcher $dispatcher) {
-		//注册一个插件
-		$objSamplePlugin = new SamplePlugin();
-		$dispatcher->registerPlugin($objSamplePlugin);
-	}
+    public function _initPlugin(YDispatcher $dispatcher)
+    {
+        //注册一个插件
+        $objSamplePlugin = new SamplePlugin();
+        $dispatcher->registerPlugin($objSamplePlugin);
+    }
 
-	public function _initRoute(YDispatcher $dispatcher) {
-		//在这里注册自己的路由协议,默认使用简单路由
-	}
-	
-	public function _initView(YDispatcher $dispatcher) {
-		//在这里注册自己的view控制器，例如smarty,firekylin
-	}
+    public function _initRoute(YDispatcher $dispatcher)
+    {
+        //在这里注册自己的路由协议,默认使用简单路由
+    }
+
+    public function _initView(YDispatcher $dispatcher)
+    {
+        //在这里注册自己的view控制器，例如smarty,firekylin
+    }
 }
