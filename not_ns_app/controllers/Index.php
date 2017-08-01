@@ -46,7 +46,7 @@ class IndexController extends Yaf_Controller_Abstract
 
     public function psr4test1Action()
     {
-        models\Test\Psr4test::sayMyName();
+        not\ns\models\Test\Psr4test::sayMyName();
         return false;
     }
 }

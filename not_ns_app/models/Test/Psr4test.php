@@ -6,7 +6,7 @@
  * Time: 下午5:00
  */
 
-namespace models\Test;
+namespace not\ns\models\Test;
 
 class Psr4test
 {

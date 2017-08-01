@@ -14,7 +14,8 @@
   },
   "autoload": {
     "psr-4": {
-      "models\\": "application/models/"
+      "models\\": "application/models/",
+      "not\\ns\\models\\": "not_ns_app/models/"
     }
   }
 }
