@@ -46,6 +46,20 @@ class IndexController extends YController_Abstract
         return false;
     }
 
+    public function dbtest3Action()
+    {
+        var_dump(Test\DBSampleModel::where('id', '>', 0)->count());
+        $conn = Test\DBSampleModel::getConnectionResolver()->connection('default');
+        $conn->beginTransaction();
+        $record = Test\DBSampleModel::create(['name' => 'name1']);
+        var_dump($record->id);
+        $record = Test\DBSampleModel::create(['name' => 'name2']);
+        var_dump($record->id);
+        $conn->rollBack();
+        var_dump(Test\DBSampleModel::where('id', '>', 0)->count());
+        return false;
+    }
+
     public function psr4test1Action()
     {
         models\Test\Psr4test::sayMyName();

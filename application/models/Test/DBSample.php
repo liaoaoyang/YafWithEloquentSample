@@ -19,5 +19,10 @@ namespace Test;
 class DBSampleModel extends \BaseModel
 {
     protected $table = 'db_sample';
+
+    protected $fillable = [
+        'name',
+    ];
+
     public $timestamps = false;
 }
