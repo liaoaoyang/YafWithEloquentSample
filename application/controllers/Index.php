@@ -7,6 +7,7 @@
  */
 
 use Yaf\Controller_Abstract as YController_Abstract;
+use Illuminate\Support\Facades\DB as DBFacades;
 
 class IndexController extends YController_Abstract
 {
@@ -50,12 +51,26 @@ class IndexController extends YController_Abstract
     {
         var_dump(Test\DBSampleModel::where('id', '>', 0)->count());
         $conn = Test\DBSampleModel::getConnectionResolver()->connection('default');
-        $conn->beginTransaction();
         $record = Test\DBSampleModel::create(['name' => 'name1']);
         var_dump($record->id);
         $record = Test\DBSampleModel::create(['name' => 'name2']);
         var_dump($record->id);
         $conn->rollBack();
+        var_dump(Test\DBSampleModel::where('id', '>', 0)->count());
+        return false;
+    }
+
+
+    public function dbtest4Action()
+    {
+        var_dump("use DB Facade");
+        var_dump(Test\DBSampleModel::where('id', '>', 0)->count());
+        DBFacades::beginTransaction();
+        $record = Test\DBSampleModel::create(['name' => 'name1']);
+        var_dump($record->id);
+        $record = Test\DBSampleModel::create(['name' => 'name2']);
+        var_dump($record->id);
+        DBFacades::rollBack();
         var_dump(Test\DBSampleModel::where('id', '>', 0)->count());
         return false;
     }

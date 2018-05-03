@@ -7,9 +7,11 @@ use Yaf\Registry as YRegistry;
 
 class BaseModel extends IlluminateModel
 {
-    protected        $config   = null;
-    protected        $capsule  = null;
-    protected static $capsules = [];
+    protected        $config  = null;
+    protected static $capsule = null;
+    protected static $fakeApp = [];
+
+    protected $connection = 'default';
 
     public function __construct(array $attributes = array())
     {
@@ -22,29 +24,16 @@ class BaseModel extends IlluminateModel
         }
 
         $this->config = $this->config->$dbConfigKey->toArray();
-        $entry = self::getCapsuleEntry($this->config);
 
-        if (isset(self::$capsules[$entry])) {
-            $capsule = self::$capsules[$entry];
-        } else {
-            $capsule = new IlluminateCapsule();
-            $capsule->addConnection($this->config);
-            $capsule->bootEloquent();
-            self::$capsules[$entry] = $capsule;
+        if (!self::$capsule) {
+            self::$capsule = new IlluminateCapsule();
+            self::$capsule->bootEloquent();
+            self::$fakeApp = [
+                'db' => self::$capsule->getDatabaseManager(),
+            ];
+            Illuminate\Support\Facades\DB::setFacadeApplication(self::$fakeApp);
         }
 
-        $this->capsule = $capsule;
-    }
-
-    protected static function getCapsuleEntry($config)
-    {
-        if (!is_array($config)) {
-            return '_';
-        }
-
-        $configValues = array_values($config);
-        sort($configValues);
-
-        return md5(join('_', $configValues));
+        self::$capsule->addConnection($this->config, $this->connection);
     }
 }
